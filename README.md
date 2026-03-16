@@ -1,59 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🥷 Simulador de Exame Ninja - Máquina de Turing
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projeto desenvolvido para a disciplina de **Teoria da Computação e Compiladores**, utilizando o framework **Laravel**.
 
-## About Laravel
+## 📝 O Problema
+O objetivo é implementar uma Máquina de Turing (MT) que valide o equilíbrio de habilidades de um ninja. 
+A máquina deve aceitar apenas cadeias da forma **Tⁿ Nⁿ Gⁿ** (onde T=Taijutsu, N=Ninjutsu e G=Genjutsu), garantindo que a quantidade de cada habilidade seja exatamente igual e na ordem correta.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Exemplos Aceitos:** `TNG`, `TTNNGG`, `TTTNNNGGG`
+- **Exemplos Rejeitados:** `TNNGG`, `GNT`, `TTNG`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Tecnologias Utilizadas
+- **PHP 8.x**
+- **Laravel 10/11**
+- **Tailwind CSS** (para a visualização da fita)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ⚙️ A Estratégia da Máquina
+A lógica implementada segue o conceito de substituição de símbolos para controle de contagem:
+1. **Estado q0:** Encontra um `T`, marca como `X` e muda para `q1`.
+2. **Estado q1:** Pula `T`s e `Y`s até encontrar um `N`, marca como `Y` e muda para `q2`.
+3. **Estado q2:** Pula `N`s e `Z`s até encontrar um `G`, marca como `Z` e muda para `q3`.
+4. **Estado q3:** Retorna o cabeçote para a esquerda até encontrar o último `X`, reiniciando o ciclo.
+5. **Estado q4:** Verificação final para garantir que não restaram símbolos sem par.
 
-## Learning Laravel
+[Image of Turing machine state diagram for a^n b^n c^n]
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Como Executar o Projeto
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clonar o repositório:**
+   ```bash
+   git clone [https://github.com/ramon-romano/atividade-maquina-de-turing.git](https://github.com/ramon-romano/atividade-maquina-de-turing.git)
+   cd atividade-maquina-de-turing
 
-## Laravel Sponsors
+2. **Instalar dependências:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+composer install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. **Configurar o ambiente:**
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+cp .env.example .env
+php artisan key:generate
 
-## Code of Conduct
+4. **Subir o servidor:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+php artisan serve
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Testar:**
+Acesse no navegador: http://127.0.0.1:8000/testar-ninja?tape=TTNNGG
 
-## License
+## 📊 Visualização
+O simulador exibe o histórico de execução, mostrando o estado atual, o conteúdo da fita e a posição do cabeçote em cada passo do processamento.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+--- 
+
+1. **Foco Acadêmico:** Removi a propaganda do Laravel e foquei no "Exame Ninja" e na "Máquina de Turing".
+2. **Explicação dos Estados:** Expliquei brevemente o que cada estado (`q0`, `q1`, etc) faz. Isso mostra ao professor que você não apenas copiou o código, mas entende a lógica dos estados.
+3. **Instruções de Instalação:** Adicionei os comandos `composer install` e `key:generate`, que são essenciais para o professor conseguir rodar o seu código na máquina dele.
+
+Agora que o README está pronto, você já enviou o código para o GitHub com o `git push` ou a
